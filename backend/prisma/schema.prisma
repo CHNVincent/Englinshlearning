@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Sentence {
+  id            Int      @id @default(autoincrement())
+  text          String
+  category      String   @default("general")
+  difficulty    Int      @default(1)
+  audioBritish  String?
+  audioAmerican String?
+  audioStatus   String   @default("pending")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  isDeleted     Boolean  @default(false)
+}
+
+model Admin {
+  id           Int    @id @default(autoincrement())
+  username     String @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
